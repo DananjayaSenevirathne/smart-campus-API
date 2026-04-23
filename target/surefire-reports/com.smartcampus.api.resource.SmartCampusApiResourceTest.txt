@@ -1,0 +1,100 @@
+-------------------------------------------------------------------------------
+Test set: com.smartcampus.api.resource.SmartCampusApiResourceTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 1.413 s <<< FAILURE! -- in com.smartcampus.api.resource.SmartCampusApiResourceTest
+com.smartcampus.api.resource.SmartCampusApiResourceTest.creatingSensorWithMissingRoomReturns422 -- Time elapsed: 0.880 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <422> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.creatingSensorWithMissingRoomReturns422(SmartCampusApiResourceTest.java:84)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.addingReadingUpdatesCurrentSensorValue -- Time elapsed: 0.097 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <201> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.createRoom(SmartCampusApiResourceTest.java:155)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.addingReadingUpdatesCurrentSensorValue(SmartCampusApiResourceTest.java:108)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.deleteRoomWithSensorsReturns409 -- Time elapsed: 0.090 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <201> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.createRoom(SmartCampusApiResourceTest.java:155)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.deleteRoomWithSensorsReturns409(SmartCampusApiResourceTest.java:66)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.roomLifecycleCreateGetAndDelete -- Time elapsed: 0.078 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <201> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.createRoom(SmartCampusApiResourceTest.java:155)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.roomLifecycleCreateGetAndDelete(SmartCampusApiResourceTest.java:51)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.discoveryEndpointReturnsApiMetadata -- Time elapsed: 0.066 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <200> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.discoveryEndpointReturnsApiMetadata(SmartCampusApiResourceTest.java:38)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.sensorsCanBeFilteredByType -- Time elapsed: 0.066 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <201> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.createRoom(SmartCampusApiResourceTest.java:155)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.sensorsCanBeFilteredByType(SmartCampusApiResourceTest.java:93)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.smartcampus.api.resource.SmartCampusApiResourceTest.addingReadingToUnavailableSensorReturns403 -- Time elapsed: 0.065 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <201> but was: <404>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.createRoom(SmartCampusApiResourceTest.java:155)
+	at com.smartcampus.api.resource.SmartCampusApiResourceTest.addingReadingToUnavailableSensorReturns403(SmartCampusApiResourceTest.java:132)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
