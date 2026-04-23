@@ -16,19 +16,16 @@ import java.util.Map;
 public class DiscoveryResource {
 
     @GET
-    public Response getApiDiscovery(@Context UriInfo uriInfo) {
-        String baseUri = uriInfo.getBaseUri().toString();
-
-        Map<String, Object> payload = new LinkedHashMap<>();
-        payload.put("version", "1.0");
-        payload.put("contact", "smart-campus-support@university.edu");
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getApiInfo(@Context UriInfo uriInfo) {
+        Map<String, Object> info = new LinkedHashMap<>();
+        info.put("version", "1.0");
+        info.put("name", "Smart Campus API");
+        info.put("contact", "smart-campus-support@university.edu");
         Map<String, String> links = new LinkedHashMap<>();
-        links.put("rooms", baseUri + "rooms");
-        links.put("sensors", baseUri + "sensors");
-
-        payload.put("links", links);
-
-        return Response.ok(payload).build();
+        links.put("rooms", uriInfo.getBaseUri() + "rooms");
+        links.put("sensors", uriInfo.getBaseUri() + "sensors");
+        info.put("links", links);
+        return Response.ok(info).build();
     }
 }

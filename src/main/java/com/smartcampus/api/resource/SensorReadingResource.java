@@ -14,8 +14,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,49 +33,44 @@ public class SensorReadingResource {
         Sensor sensor = DataStore.SENSORS.get(sensorId);
         if (sensor == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(errorPayload("Not Found", "Sensor with id " + sensorId + " was not found."))
-                    .build();
+                .entity(Map.of("message", "Sensor not found")).build();
         }
 
-        List<SensorReading> readings = DataStore.READINGS.getOrDefault(sensorId, new ArrayList<>());
+        List<SensorReading> readings = DataStore.READINGS.getOrDefault(sensorId, new java.util.ArrayList<>());
         return Response.ok(readings).build();
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addReading(SensorReading reading, @Context UriInfo uriInfo) {
         Sensor sensor = DataStore.SENSORS.get(sensorId);
+        // 1. Check sensor exists (404 if not)
         if (sensor == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(errorPayload("Not Found", "Sensor with id " + sensorId + " was not found."))
-                    .build();
+                .entity(Map.of("message", "Sensor not found")).build();
         }
 
+        // 2. Check sensor status is NOT "MAINTENANCE" (throw SensorUnavailableException → 403)
         if (sensor.getStatus() == Sensor.Status.MAINTENANCE) {
             throw new SensorUnavailableException(
-                    "Sensor " + sensorId + " is not available for new readings."
+                "Sensor " + sensorId + " is in maintenance and not available for readings."
             );
         }
 
-        if (reading == null || reading.getValue() == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(errorPayload("Validation error", "Reading value is required."))
-                    .build();
-        }
-
-        reading.setId(UUID.randomUUID().toString());
+        // 3. Set reading timestamp to System.currentTimeMillis()
         reading.setTimestamp(String.valueOf(System.currentTimeMillis()));
+        // 4. Generate UUID for reading ID
+        reading.setId(UUID.randomUUID().toString());
 
-        DataStore.READINGS.computeIfAbsent(sensorId, key -> new ArrayList<>()).add(reading);
+        // Ensure thread-safe list and add reading
+        DataStore.READINGS.computeIfAbsent(sensorId, k -> new java.util.concurrent.CopyOnWriteArrayList<>()).add(reading);
+
+        // 5. Update parent sensor's currentValue
         sensor.setCurrentValue(reading.getValue());
 
-        URI createdUri = uriInfo.getAbsolutePathBuilder().path(reading.getId()).build();
-        return Response.created(createdUri).entity(reading).build();
-    }
-
-    private Map<String, String> errorPayload(String error, String message) {
-        Map<String, String> payload = new LinkedHashMap<>();
-        payload.put("error", error);
-        payload.put("message", message);
-        return payload;
+        // 6. Return 201
+        URI location = uriInfo.getAbsolutePathBuilder().path(reading.getId()).build();
+        return Response.created(location).entity(reading).build();
     }
 }

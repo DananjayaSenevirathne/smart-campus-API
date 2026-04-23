@@ -13,8 +13,10 @@ public class RoomNotEmptyExceptionMapper implements ExceptionMapper<RoomNotEmpty
 
     @Override
     public Response toResponse(RoomNotEmptyException exception) {
-        Map<String, String> error = new LinkedHashMap<>();
-        error.put("error", exception.getMessage());
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("status", 409);
+        error.put("error", "Conflict");
+        error.put("message", exception.getMessage());
 
         return Response.status(Response.Status.CONFLICT)
                 .type(MediaType.APPLICATION_JSON)

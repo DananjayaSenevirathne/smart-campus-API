@@ -17,7 +17,6 @@ import jakarta.ws.rs.core.UriInfo;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,29 +33,13 @@ public class RoomResource {
 
     @POST
     public Response createRoom(Room room, @Context UriInfo uriInfo) {
-        if (room == null || room.getName() == null || room.getName().isBlank()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(errorPayload("Validation error", "Room name is required."))
-                    .build();
-        }
-
         if (room.getId() == null || room.getId().isBlank()) {
             room.setId(DataStore.nextId());
         }
-
-        // Always initialize sensorIds as an empty list when a room is created.
         room.setSensorIds(new ArrayList<>());
-
-        if (DataStore.ROOMS.containsKey(room.getId())) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity(errorPayload("Conflict", "Room with id " + room.getId() + " already exists."))
-                    .build();
-        }
-
         DataStore.ROOMS.put(room.getId(), room);
-
-        URI createdUri = uriInfo.getAbsolutePathBuilder().path(room.getId()).build();
-        return Response.created(createdUri).entity(room).build();
+        URI location = uriInfo.getAbsolutePathBuilder().path(room.getId()).build();
+        return Response.created(location).entity(room).build(); // 201 + Location header
     }
 
     @GET
@@ -65,8 +48,7 @@ public class RoomResource {
         Room room = DataStore.ROOMS.get(id);
         if (room == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(errorPayload("Not Found", "Room with id " + id + " was not found."))
-                    .build();
+                    .entity(Map.of("message", "Room not found")).build();
         }
 
         return Response.ok(room).build();
@@ -78,22 +60,14 @@ public class RoomResource {
         Room room = DataStore.ROOMS.get(id);
         if (room == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(errorPayload("Not Found", "Room with id " + id + " was not found."))
-                    .build();
+                    .entity(Map.of("message", "Room not found")).build();
         }
 
         if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
-            throw new RoomNotEmptyException("Room " + id + " cannot be deleted because it has linked sensors.");
+            throw new RoomNotEmptyException("Room " + id + " still has sensors assigned and cannot be deleted.");
         }
 
         DataStore.ROOMS.remove(id);
-        return Response.noContent().build();
-    }
-
-    private Map<String, String> errorPayload(String error, String message) {
-        Map<String, String> payload = new LinkedHashMap<>();
-        payload.put("error", error);
-        payload.put("message", message);
-        return payload;
+        return Response.noContent().build(); // 204
     }
 }

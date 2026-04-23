@@ -176,7 +176,7 @@ class SmartCampusApiResourceTest extends JerseyTest {
     }
 
     private WebTarget apiTarget(String... paths) {
-        WebTarget target = target("api").path("v1");
+        WebTarget target = target();
         for (String path : paths) {
             target = target.path(path);
         }

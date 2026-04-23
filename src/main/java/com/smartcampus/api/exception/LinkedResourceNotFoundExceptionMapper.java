@@ -13,8 +13,9 @@ public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<Li
 
     @Override
     public Response toResponse(LinkedResourceNotFoundException exception) {
-        Map<String, String> error = new LinkedHashMap<>();
-        error.put("error", "Referenced room does not exist");
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("status", 422);
+        error.put("error", "Unprocessable Entity");
         error.put("message", exception.getMessage());
 
         return Response.status(422)
